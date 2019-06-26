@@ -10,8 +10,6 @@ def output
   end
 end
 
-# output
-
 # 2 Нарисовать в консоле круг, диаметр\радиус которого задается с консоли.
 
 def circle(arg)
@@ -33,8 +31,6 @@ def circle(arg)
   end
 end
 
-# circle(5)
-
 # 3 Вывести в консоль матрицу с еденицами по диагонали. Размер задается с консоли.
 
 def matrix(arr)
@@ -46,8 +42,6 @@ def matrix(arr)
   end
   puts mas.join('').to_s.scan(/.{1,#{arr}}/)
 end
-
-# matrix(7)
 
 # 4 Написать рекурсивный метод для поиска значения ключа key9 в хеше:
 
@@ -63,8 +57,6 @@ class Hash
     end
   end
 end
-
-# puts hash.deep_find(:key9)
 
 # 5 Написать метод, который принимает строку и приводит её в CamelCase, ruby_case_underscore и css-case.
 class String
@@ -87,46 +79,70 @@ def formatize(str, opt)
 end
 str = 'i love ruby'
 
-#formatize(str, :camel)
-#formatize(str, :underscore)
-#formatize(str, :css)
-
-
 # 6 Написать метод, который принимает многомерный массив и тип данных, возвращает массив этих типов.
 
+array = [[1, 2, 3, 4, '1'], ['2', '5', '10'], [111, 222, 333, 444], ['i', 'love', 'ruby'], { key: 'value' }, [[['text', 100_000]]]]
 
-def get_all
-  array = [[1, 2, 3, 4, '1'], ['2', '5', '10'], [111, 222, 333, 444], ['i', 'love', 'ruby'], { key: 'value' }, [[['text', 100_000]]]]
+def get_all(array, data_type)
+  var_int = []
+  var_str = []
 
   array.each_index do |inx|
     array[inx].each do |val|
       if val.kind_of?(Integer)
-        varrib = []
-        varrib << val
-        p varrib
+        var_int << val
+      elsif val.kind_of?(Array)
+        val.each do |k, v|
+          if k.kind_of?(String)
+            var_str << k
+          end
+          if v.kind_of?(Integer)
+            var_int << v
+          end
+        end
       elsif val.kind_of?(String)
-        p val.split
+        var_str << val
       end
     end
+  end
+
+  case data_type
+  when 'String' then p var_str
+  when 'Integer' then p var_int
+  else puts "Enter the arguments 'String' or 'Integer'"
   end
 end
 
 loop do
+  puts "Enter the number of the task (from 1 to 6)"
   case gets.chomp
   when '1'
     output
   when '2'
-    circle(5)
+    puts "Enter the size of the circle (any integer)"
+    arg2 = gets.to_i
+    circle(arg2)
   when '3'
-    matrix(7)
+    puts "Enter the size of the matrix (any integer)"
+    arg3 = gets.to_i
+    matrix(arg3)
   when '4'
-    puts hash.deep_find(:key9)
+    puts "Enter the key 'key9' to find out the result "
+    arg4 = gets.chomp.to_sym
+    puts hash.deep_find(arg4)
   when '5'
-    formatize(str, :camel)
-    formatize(str, :underscore)
-    formatize(str, :css)
+    puts "Enter the arguments 'camel', 'underscore' and 'css' in rotation for string conversion"
+    arg5_1 = gets.chomp.to_sym
+    arg5_2 = gets.chomp.to_sym
+    arg5_3 = gets.chomp.to_sym
+
+    formatize(str, arg5_1)
+    formatize(str, arg5_2)
+    formatize(str, arg5_3)
   when '6'
-    get_all
+    puts "Enter the arguments 'String' or 'Integer'"
+    arg6 = gets.chomp
+    get_all(array, arg6)
   else puts "наберите цифру от 1 до 6"
   end
 end
