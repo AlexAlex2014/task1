@@ -2,7 +2,7 @@
 
 class String
   def camel
-    split(' ').map{|e| e.capitalize}.join
+    split(' ').map(&:capitalize).join
   end
   def underscore
     split(' ').join('_')

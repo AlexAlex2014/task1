@@ -38,7 +38,8 @@ loop do
   when '6'
     puts "Enter the arguments 'String' or 'Integer'"
     arg6 = gets.chomp
-    Task6.get_all(array, arg6)
+    argum = Object.const_get(arg6)
+    Task6.get_all(array, argum)
   else puts "Enter the number from 1 to 6 "
   end
 end
