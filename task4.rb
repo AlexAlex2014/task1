@@ -1,12 +1,13 @@
-# 4 Написать рекурсивный метод для поиска значения ключа key9 в хеше:
+# frozen_string_literal: true
 
+# create class Task4
 class Hash
-  def deep_find(key, object=self, found=nil)
+  def deep_find(key, object = self, found = nil)
     if object.respond_to?(:key?) && object.key?(key)
-      return object[key]
+      object[key]
     elsif object.is_a? Enumerable
       object.find { |*a| found = deep_find(key, a.last) }
-      return found
+      found
     end
   end
 end
